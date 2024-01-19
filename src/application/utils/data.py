@@ -1,6 +1,7 @@
 __all__ = [
     'ROOT_DIR',
     'DATA_DIR',
+    'DictOfRange',
 ]
 
 
