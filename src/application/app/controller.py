@@ -7,12 +7,9 @@ from application import utils
 #import model
 #import view
 from pathlib import Path
-#from sys import path
 
 from .model import *
 
-#ROOT_DIR = Path(path[0]).parent.parent
-#DATA_DIR = ROOT_DIR / 'data'
 
 class KindLoader:
     default_path: Path = utils.DATA_DIR / 'kinds'
@@ -30,6 +27,45 @@ class KindLoader:
             kind = eval(source)
             kinds.append(kind)
         return kinds
+
+
+class Application:
+    def __init__(self):
+        self.view = None
+        self.creature: Creature = None
+    
+    def link_view(self, view):
+        self.view = view
+    
+    def run(self) -> None:
+        if self.is_live_creature():
+            self.creature = self.load_creature()
+        else:
+            self.view.menu_frame(KindLoader.load())
+        self.view.mainloop()
+        self.save_creature()
+    
+    def is_live_creature(self) -> bool:
+        ...
+        # для теста
+        return False
+    
+    def load_creature(self) -> Creature:
+        ...
+    
+    def _progress_creature(self) -> Creature:
+        ...
+    
+    def new_creature(
+            self, 
+            kind: Kind,
+            name: str
+    ) -> Creature:
+        self.creature = Creature(kind, name)
+        return self.creature
+    
+    def save_creature(self):
+        ...
 
 
 kinds = KindLoader.load()
