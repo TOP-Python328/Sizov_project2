@@ -138,12 +138,13 @@ class Action(ABC):
 class PlayerAction(Action):
     """Описывает действия игрока."""
     image: Path
+    state = 'normal'
 
 
 class Feed(PlayerAction):
     """Описывает действие игрока покормить питомца."""
     name = 'покормить'
-    image = Path()    
+    image = DATA_DIR / 'images/btn1.png'   
     
     def __init__(
             self,
@@ -153,17 +154,38 @@ class Feed(PlayerAction):
         self.amount = amount
         super().__init__(creature)
 
-    def do(self) -> None:
+    def do(self) -> str:
         self.creature.params[Satiety].value += self.amount
+        return f'вы покормили питомца на {self.amount} ед.'
 
 
 class TeaseHead(PlayerAction):
     """Описывает действие игрока чесать голову питомцу."""
     name = 'почесать голову'
-    image = Path()    
+    image = DATA_DIR / 'images/btn3.png'
+    
+    def do(self) -> str:
+        return 'вы почесали голову питомцу'
 
-    def do(self) -> None:
-        ...
+
+class Play(PlayerAction):
+    name = 'поиграть с питомцем'
+    image = DATA_DIR / 'images/btn2.png'
+    
+    def __init__(
+            self, 
+            amount1: float,
+            amount2: float,
+            creature: 'Creature' = None, 
+    ):
+        self.amount1 = amount1
+        self.amount2 = amount2
+        super().__init__(creature)
+    
+    def do(self) -> str:
+        self.creature.params[Mood].value += self.amount1
+        self.creature.params[Satiety].value -= self.amount2
+        return f'вы поиграли с питомцем'
 
 
 class CreatureAction(Action):
@@ -183,6 +205,13 @@ class ChaseTail(CreatureAction):
     
     def do(self) -> None:
         print('бегает за своим хвостом')
+
+
+class Sleep(CreatureAction):
+    name = 'спать'
+    
+    def do(self) -> None:
+        print('спит')
 
 
 class NoAction(Action):
