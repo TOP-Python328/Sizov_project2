@@ -4,8 +4,8 @@ from random import choice
 from tkinter import Tk, PhotoImage, StringVar
 from tkinter.ttk import Frame, Button, Label
 
-import model
-import controller
+from . import model
+from . import controller
 
 
 class RootWidget(Tk):
@@ -158,7 +158,7 @@ class Game(Frame):
             text_panel,
             textvariable=self.params,
             wraplength=self._screen_size//7*2,
-            font=('Consolas', 16, 'bold'),
+            font=('Consolas', 14, 'bold'),
             anchor='ne',
             justify='right',
             # background='#ddd',

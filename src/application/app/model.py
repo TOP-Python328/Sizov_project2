@@ -144,7 +144,7 @@ class PlayerAction(Action):
 class Feed(PlayerAction):
     """Описывает действие игрока покормить питомца."""
     name = 'покормить'
-    image = DATA_DIR / 'images/btn1.png'   
+    image = utils.DATA_DIR / 'images/btn1.png'   
     
     def __init__(
             self,
@@ -162,7 +162,7 @@ class Feed(PlayerAction):
 class TeaseHead(PlayerAction):
     """Описывает действие игрока чесать голову питомцу."""
     name = 'почесать голову'
-    image = DATA_DIR / 'images/btn3.png'
+    image = utils.DATA_DIR / 'images/btn3.png'
     
     def do(self) -> str:
         return 'вы почесали голову питомцу'
@@ -170,7 +170,7 @@ class TeaseHead(PlayerAction):
 
 class Play(PlayerAction):
     name = 'поиграть с питомцем'
-    image = DATA_DIR / 'images/btn2.png'
+    image = utils.DATA_DIR / 'images/btn2.png'
     
     def __init__(
             self, 
@@ -214,9 +214,11 @@ class Sleep(CreatureAction):
         print('спит')
 
 
-class NoAction(Action):
+class NoAction(PlayerAction):
     """Описывает бездействие питомца."""
     name = 'бездействие'
+    image = utils.DATA_DIR / 'images/no_action.png'
+    state = 'disabled'
     
     def do(self) -> None:
         print('бездействует')
@@ -231,11 +233,11 @@ class MaturePhase:
     - список активностей существа.
     """
     def __init__(
-                self,
-                days: int,
-                *parameters: KindParameter,
-                player_actions = Iterable[PlayerAction],
-                creature_actions = Iterable[CreatureAction],
+            self, 
+            days: int,
+            *parameters: KindParameter,
+            player_actions: Iterable[PlayerAction],
+            creature_actions: Iterable[CreatureAction],
     ):
         self.days = days
         self.params = set(parameters)
@@ -243,22 +245,26 @@ class MaturePhase:
         self.creature_actions = set(creature_actions)
 
 
-class Kind(utils.DictOfRange):
+class Kind(utils.DictOfRanges):
     """Описывает вид как словарь диапазонов, где ключи это игровые дни (возраст существа), а значения - фазы взросления."""
     def __init__(
-                self, 
-                name: str, 
-                *mature_phases: MaturePhase
+            self, 
+            name: str, 
+            image: Path,
+            *mature_phases: MaturePhase
     ):
         self.name = name
+        self.image = image
         
         phases = {}
         left = 0
         for phase in mature_phases:
-            key = left, left + phase.days  - 1
+            key = left, left + phase.days - 1
             phases[key] = phase
             left = left + phase.days
         super().__init__(phases)
+        
+        self.max_age = left - 1
 
 
 @dataclass
@@ -303,12 +309,13 @@ class Creature:
         self.history: History = History()
 
     def __repr__(self):
-        title = f'({self.kind.name}) {self.name}: {self.age} ИД'
+        #title = f'({self.kind.name}) {self.name}: {self.age} ИД'
         params = '\n'.join(
             f'{p.name}: {p.value:.1f}'
             for p in self.params.values()
         )
-        return f'{title}\n{params}'
+        #return f'{title}\n{params}'
+        return f'{params}'
 
     def __set_actions(self) -> None:
         self.player_actions = {
@@ -334,9 +341,9 @@ class Creature:
     def age(self, new_value: int):
     
         old_phase = self.kind.get_range(self.__age)
-        old_phase = self.kind.get_range(new_value)
+        new_phase = self.kind.get_range(new_value)
         self.__age = new_value
-        if old_phase != new_value:
+        if old_phase != new_phase:
             self._grow_up()
     
     def _grow_up(self) -> None:

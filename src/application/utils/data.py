@@ -1,7 +1,7 @@
 __all__ = [
     'ROOT_DIR',
     'DATA_DIR',
-    'DictOfRange',
+    'DictOfRanges',
 ]
 
 
@@ -13,7 +13,7 @@ ROOT_DIR = Path(path[0]).parent
 DATA_DIR = ROOT_DIR / 'data'
 
 
-class DictOfRange(dict):
+class DictOfRanges(dict):
     """Описывает словарь диапазонов."""
     def __init__(self, mappable: dict):
         for key in mappable:
