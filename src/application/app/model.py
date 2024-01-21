@@ -91,6 +91,26 @@ class Satiety(CreatureParameter):
         self.value -= 1
 
 
+class Mood(CreatureParameter):
+    name = 'настроение'
+    
+    def update(self) -> None:
+        satiety = self.creature.params[Satiety]
+        critical = sum(satiety.range) / 4
+        if 0 < satiety.value < critical:
+            self.value -= 0.2
+        elif satiety.value == 0:
+            self.value -= 0.5
+        satiety = self.creature.params[Health]
+        critical = sum(satiety.range) / 4
+        if 0 < satiety.value < critical:
+            self.value -= 0.3
+        elif satiety.value == 0:
+            self.value -= 0.7
+        else:
+            self.value += 0.1
+
+
 Parameters = Enum(
     """Перечислитель параметров."""
     'Parameters',
