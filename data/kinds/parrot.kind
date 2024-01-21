@@ -1,6 +1,6 @@
 Kind(
     'попугай',
-    DATA_DIR / 'images/parrot.png',
+    utils.DATA_DIR / 'images/parrot.png',
     MaturePhase(
         3,
         KindParameter(Health.__name__, 10, 0, 25),

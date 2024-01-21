@@ -1,6 +1,6 @@
 Kind(
     'хомяк',
-    DATA_DIR / 'images/hamster.png',
+    utils.DATA_DIR / 'images/hamster.png',
     MaturePhase(
         3,
         KindParameter(Health.__name__, 10, 0, 25),

@@ -2,18 +2,18 @@
 Controller (MVC): управляющий модуль.
 """
 
-#from application import utils
+from application import utils
 
 from pathlib import Path
-from sys import path
+#from sys import path
 
 from .model import *
 
-ROOT_DIR = Path(path[0]).parent
-DATA_DIR = ROOT_DIR / 'data'
+#ROOT_DIR = Path(path[0]).parent
+#DATA_DIR = ROOT_DIR / 'data'
 
 class KindLoader:
-    default_path: Path = DATA_DIR / 'kinds'
+    default_path: Path = utils.DATA_DIR / 'kinds'
     
     @classmethod
     def _get_files(cls) -> list[Path]:

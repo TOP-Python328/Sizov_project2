@@ -245,7 +245,7 @@ class Game(Frame):
     
     def check_params(self):
         # if self.master.app.creature.params[...]
-        self.change_image(controller.DATA_DIR / 'images/dog.png')
+        self.change_image(controller.utils.DATA_DIR / 'images/dog.png')
         
         self.after(250, lambda: self.check_params())
         self.update()
