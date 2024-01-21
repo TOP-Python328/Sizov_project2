@@ -1,8 +1,8 @@
 Kind(
-    'собака',
-    DATA_DIR / 'images/dog.png',
+    'попугай',
+    DATA_DIR / 'images/parrot.png',
     MaturePhase(
-        5,
+        3,
         KindParameter(Health.__name__, 10, 0, 25),
         KindParameter(Satiety.__name__, 2, 0, 15),
         KindParameter(Mood.__name__, 5, -10, 10),
@@ -16,7 +16,7 @@ Kind(
         ]
     ),
     MaturePhase(
-        50,
+        20,
         KindParameter(Health.__name__, 0, 0, 60),
         KindParameter(Satiety.__name__, 0, 0, 40),
         KindParameter(Mood.__name__, 0, -5, 7),
@@ -31,7 +31,7 @@ Kind(
         ]
     ),
     MaturePhase(
-        20,
+        5,
         KindParameter(Health.__name__, 0, 0, 45),
         KindParameter(Satiety.__name__, 0, 0, 25),
         KindParameter(Mood.__name__, 5, -5, 5),
