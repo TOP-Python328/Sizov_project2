@@ -3,7 +3,7 @@
 """
 
  
-from application import utils
+from tamagotchi import utils
 
 from abc import ABC, abstractmethod
 from collections.abc import Iterable
