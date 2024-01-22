@@ -188,6 +188,24 @@ class Play(PlayerAction):
         return f'вы поиграли с питомцем'
 
 
+class Heal(PlayerAction):
+    """Описывает действие игрока лечить питомца."""
+    name = 'покормить'
+    image = utils.DATA_DIR / 'images/btn4.png'   
+    
+    def __init__(
+            self,
+            amount: float,
+            creature: 'Creature' = None,            
+    ):
+        self.amount = amount
+        super().__init__(creature)
+
+    def do(self) -> str:
+        self.creature.params[Health].value += self.amount
+        return f'вы полечили питомца на {self.amount} ед.'
+
+
 class CreatureAction(Action):
     """Описывает действие питомца."""
     def __init__(

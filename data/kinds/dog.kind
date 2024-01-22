@@ -7,8 +7,9 @@ Kind(
         KindParameter(Satiety.__name__, 2, 0, 15),
         KindParameter(Mood.__name__, 5, -10, 10),
         player_actions=[
-            Feed(10),
+            Feed(5),
             Play(5,1),
+            Heal(10),
         ],
         creature_actions=[
             ChaseTail(0.9),
@@ -24,6 +25,7 @@ Kind(
             Feed(25),
             Play(5,1),
             TeaseHead(),
+            Heal(10),
         ],
         creature_actions=[
             ChaseTail(0.35),
@@ -38,6 +40,7 @@ Kind(
         player_actions=[
             Feed(20),
             TeaseHead(),
+            Heal(10),
         ],
         creature_actions=[
             Sleep(0.8),
