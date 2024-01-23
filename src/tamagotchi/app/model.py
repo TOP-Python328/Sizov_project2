@@ -131,7 +131,7 @@ class Action(ABC):
         return hash(self.name)
 
     @abstractmethod
-    def do(self) -> None:
+    def do(self) -> str:
         pass
 
 
@@ -190,7 +190,7 @@ class Play(PlayerAction):
 
 class Heal(PlayerAction):
     """Описывает действие игрока лечить питомца."""
-    name = 'покормить'
+    name = 'лечить'
     image = utils.DATA_DIR / 'images/btn4.png'   
     
     def __init__(
@@ -327,13 +327,13 @@ class Creature:
         self.history: History = History()
 
     def __repr__(self):
-        #title = f'({self.kind.name}) {self.name}: {self.age} ИД'
+        title = f'{self.name} \n возраст: {self.age} ИД'
         params = '\n'.join(
             f'{p.name}: {p.value:.1f}'
             for p in self.params.values()
         )
-        #return f'{title}\n{params}'
-        return f'{params}'
+        return f'{title}\n{params}'
+        #return f'{params}'
 
     def __set_actions(self) -> None:
         self.player_actions = {

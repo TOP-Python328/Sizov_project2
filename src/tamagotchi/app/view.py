@@ -9,7 +9,7 @@ from . import controller
 
 
 class RootWidget(Tk):
-    """"""
+    """Корневой виджет (Главное окно)."""
     def __init__(
             self,
             app: controller.Application,
@@ -51,7 +51,7 @@ class RootWidget(Tk):
 
 
 class MainMenu(Frame):
-    """"""
+    """Главное окно с выбором вида."""
     def __init__(
             self, 
             master: RootWidget, 
@@ -107,7 +107,8 @@ class MainMenu(Frame):
 
 
 class Game(Frame):
-    """"""
+    """Виджет игрового процесса."""
+    
     def __init__(
             self, 
             master: RootWidget, 
@@ -233,21 +234,22 @@ class Game(Frame):
         self._image = PhotoImage(file=img_path)
         # img_width, img_height = self._image.width(), self._image.height()
         # if img_width != self._screen_size or img_height != self._screen_size:
-            # self._image = _resize_image(
-                # self._image,
-                # img_width,
-                # img_height,
-                # self._screen_size,
-                # self._screen_size,
-            # )
+        #     self._image = _resize_image(
+        #         self._image,
+        #         img_width,
+        #         img_height,
+        #         self._screen_size,
+        #         self._screen_size,
+        #     )
         self.screen.configure(image=self._image)
         self.update_idletasks()
     
     def check_params(self):
         # if self.master.app.creature.params[...]
-        self.change_image(controller.utils.DATA_DIR / 'images/dog.png')
+        #self.change_image(controller.utils.DATA_DIR / 'images/dog.png')
+        self.change_image(self.master.app.creature.kind.image)
         
-        self.after(250, lambda: self.check_params())
+        self.after(1000, lambda: self.check_params())
         self.update()
     
     def update_params(self):
@@ -255,6 +257,7 @@ class Game(Frame):
         self.change_params(repr(self.master.app.creature))
         self.after(1000, lambda: self.update_params())
         self.update()
+        self.master.app.creature.age = self.master.app.creature.age + 1 
 
 
 def _resize_image(
