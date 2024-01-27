@@ -8,7 +8,8 @@ from .model import *
 
 
 class KindLoader:
-    default_path: Path = utils.DATA_DIR / 'kinds'
+#    default_path: Path = utils.DATA_DIR / 'kinds'
+    default_path: Path = utils.KINDS_DIR 
     
     @classmethod
     def _get_files(cls) -> list[Path]:

@@ -1,6 +1,8 @@
 __all__ = [
     'ROOT_DIR',
     'DATA_DIR',
+    'SAVE_DIR',
+    'KINDS_DIR',
     'DictOfRanges',
 ]
 
@@ -11,7 +13,8 @@ from sys import path
 
 ROOT_DIR = Path(path[0]).parent
 DATA_DIR = ROOT_DIR / 'data'
-
+SAVE_DIR = ROOT_DIR / 'data' / 'save'
+KINDS_DIR = DATA_DIR / 'kinds'
 
 class DictOfRanges(dict):
     """Описывает словарь диапазонов."""
