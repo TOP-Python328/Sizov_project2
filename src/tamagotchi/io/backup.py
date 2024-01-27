@@ -23,7 +23,8 @@ class Backup:
         """Загружает последнее состояние питомца из файла."""
         with open(utils.SAVE_DIR / 'data.pickle', 'rb') as f:
             creature = pickle.load(f)
-            print(creature)
+            #print(creature)
+            return creature
 
 
 
