@@ -5,7 +5,7 @@ Controller (MVC): управляющий модуль.
 from tamagotchi import utils
 from pathlib import Path
 from .model import *
-
+from tamagotchi.io import backup
 
 class KindLoader:
 #    default_path: Path = utils.DATA_DIR / 'kinds'
@@ -62,4 +62,6 @@ class Application:
         return self.creature
     
     def save_creature(self):
-        ...
+#        ...
+        bc = backup.Backup(self.creature)
+        bc.save()
