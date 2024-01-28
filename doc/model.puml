@@ -1,6 +1,6 @@
 @startuml
 
-!theme monokai_npp from ..\.styles
+'!theme monokai_npp from ..\.styles
 scale 2
 
 
@@ -79,6 +79,10 @@ class Health {
     +{static}name: <i>str</i>
     +update() → <i>None</i>
 }
+class Mood {
+    +{static}name: <i>str</i>
+    +update() → <i>None</i>
+}
 class Satiety {
     +{static}name: <i>str</i>
     +update() → <i>None</i>
@@ -108,6 +112,21 @@ class Feed {
     +do()
 }
 
+class Heal {
+    +{static}name: <i>str</i>
+    +{static}image: <i>Path</i>
+    +amount: <i>float</i>
+    +do()
+}
+
+class Play {
+    +{static}name: <i>str</i>
+    +{static}image: <i>Path</i>
+    +amount1: <i>float</i>
+    +amount2: <i>float</i>
+    +do()
+}
+
 class TeaseHead {
     +{static}name: <i>str</i>
     +{static}image: <i>Path</i>
@@ -124,6 +143,10 @@ class ChaseTail {
     +do()
 }
 
+class Sleep {
+    +{static}name: <i>str</i>
+    +do()
+}
 
 class NoAction {
     +{static}name = 'бездействие'
@@ -160,39 +183,6 @@ hide MaturePhase empty members
 hide State empty members
 
 
-' list <|-- History
-' dict <|-- DictOfRanges
-
-' DictOfRanges <|-- Kind
-
-' Creature o-left- Kind
-' Creature o-right-o CreatureParameter
-' Creature o--o Action
-' Creature o-up- History
-
-
-' Kind *-- MaturePhase
-
-' MaturePhase *-- KindParameter
-' MaturePhase o-right- Action
-
-' CreatureParameter <|-- Health
-' CreatureParameter <|-- Satiety
-
-' CreatureParameter <.up. Parameters : "собирает имена \n производных классов"
-
-' History *-right- State
-
-' Action <|-- PlayerAction
-' Action <|-- CreatureAction
-' Action <|-- NoAction
-
-' PlayerAction <|-- Feed
-' PlayerAction <|-- TeaseHead
-
-' CreatureAction <|-- ChaseTail
-
-
 left to right direction
 
 list <|-right- History
@@ -212,6 +202,7 @@ MaturePhase *-right- KindParameter
 MaturePhase o-- Action
 
 CreatureParameter <|-- Health
+CreatureParameter <|-- Mood
 CreatureParameter <|-- Satiety
 
 CreatureParameter <.left. Parameters : "собирает имена \n производных классов"
@@ -219,12 +210,15 @@ CreatureParameter <.left. Parameters : "собирает имена \n прои�
 History *-up- State
 
 Action <|-- PlayerAction
-Action <|-- CreatureAction
-Action <|-- NoAction
+Action <|-right- CreatureAction
+PlayerAction <|-right- NoAction
 
-PlayerAction <|-- Feed
+PlayerAction <|-left- Feed
+PlayerAction <|-- Heal
+PlayerAction <|-- Play
 PlayerAction <|-- TeaseHead
 
 CreatureAction <|-- ChaseTail
+CreatureAction <|-- Sleep
 
 @enduml

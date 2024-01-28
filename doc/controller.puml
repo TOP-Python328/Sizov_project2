@@ -1,6 +1,6 @@
 @startuml
 
-!theme monokai_npp from ..\.styles
+' monokai_npp from ..\.styles
 scale 2
 
 
@@ -26,8 +26,13 @@ class KindLoader {
     +{static}load() → <i>list</i> [Kind]
 }
 
+class Backup {
+    +creature: Creature
+    +save() → <i>None</i>
+    +load() → <i>Creature</i> | <i>None</i>
+}
 
 Application ..> KindLoader
-
+Application ..> Backup
 
 @enduml
